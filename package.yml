@@ -1,8 +1,0 @@
-package: structure_ui
-version: '1.0.0'
-author: Sascha Weidner
-supportpage: www.redaxo.org/de/forum/
-
-requires:
-    packages:
-        structure: '~2.0.0'
