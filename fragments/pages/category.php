@@ -12,7 +12,7 @@
       <?php if(!empty($Children)) {?><a class="openCategories" href="<?php echo rex_url::backendPage('structure',['category'=>$category->getId()]);?>"><i class="rex-icon fa-chevron-<?php echo ($navigation[$category->getId()] == 1?'down':'right');?>"></i></a><?php }?>
       <?php if(!empty($Articles)) {?><a class="showArticles" href="<?php echo rex_url::backendPage('structure',['article'=>$category->getId()]);?>"><i class="rex-icon fa-<?php echo ($article_navigation[$category->getId()] == 1?'minus':'plus');?>-square-o"></i></a><?php }?>
     </span>
-    <span class="left"><a href="<?php echo $category->getPath();?>"><?php echo $category->getName();?></a></span>
+    <span class="left"><a href="<?php echo rex_url::backendPage('structure',['root_tree'=>$category->getId()]);?>"><?php echo $category->getName();?></a></span>
     <span class="right">
     </span>
   </div>

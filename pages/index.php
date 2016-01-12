@@ -5,7 +5,7 @@ echo rex_view::title($this->i18n('title_structure'));
 $categoryId = rex_get('category');
 $articleId = rex_get('article');
 $content = $sections = '';
-$Categories = rex_category::getRootCategories();
+$c_root_tree = $this->getConfig('root_tree');
 $navigation = $this->getConfig('navigation',[]);
 $article_navigation = $this->getConfig('article_navigation',[]);
 
@@ -26,7 +26,31 @@ if(rex_get('page') == 'structure') {
     }
     $this->setConfig('article_navigation',$article_navigation);
   }
+  if(($root_tree = rex_get('root_tree'))) {
+    $this->setConfig('root_tree',$root_tree);
+  }
 }
+
+$c_root_tree = $this->getConfig('root_tree');
+
+$arrCategories = [];
+if(!empty($c_root_tree) && $c_root_tree != 'reset') {
+  $Category = rex_category::get($c_root_tree);
+  $arrCategories[$Category->getId()] = $Category->getName();
+  $Categories = $Category->getChildren();
+  while($Category->getParent()) {
+    $Category = $Category->getParent();
+    $arrCategories[$Category->getId()] = $Category->getName();
+  }
+  $arrCategories = array_reverse($arrCategories,true);
+
+  echo '<div class="breadcrumb">';
+  echo '<a href="'.rex_url::backendPage('structure',['root_tree'=>'reset']).'">Root</a> | ';
+  foreach($arrCategories as $id => $name) {
+    echo '<a href="'.rex_url::backendPage('structure',['root_tree'=>$id]).'">'.$name.'</a> | ';
+  }
+  echo '</div>';
+} else $Categories = rex_category::getRootCategories();
 
 foreach($Categories as $Category) {
     $fragment = new rex_fragment();
