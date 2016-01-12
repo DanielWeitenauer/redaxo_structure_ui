@@ -1,5 +1,7 @@
 #Structure UI
 
+Das ist eine "Early Alpha". Das heißt es Issues können angelegt werden zum Diskutieren, allerdings kann keine Funktion gewährleistet werden. Danke!
+
 Test-Projekt mit dem die Struktur im Backend aufklappbar wird. Das Addon hat noch kein Design oder Funktion. Dieses Addon soll lediglich eine Möglichkeit zeigen.
 
 Wenn man eine Kategorie anklickt, werden nur noch die Unterkategorien angezeigt. Dafür wird eine Breadkrumb ausgegeben, mit der der User zurück kommt.
