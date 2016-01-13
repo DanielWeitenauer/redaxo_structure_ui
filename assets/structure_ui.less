@@ -1,0 +1,56 @@
+.structure {
+  .structure_header {
+    text-align: right;
+    margin-bottom: 20px;
+    > a {
+      vertical-align: top;
+      display: inline-block;
+    }
+  }
+  ul {
+    height: auto;
+    overflow: hidden;
+    + ul {
+      border-top: 1px solid silver;
+    }
+  }
+  .panel-body > ul {
+    padding-left: 0;
+    li + li {
+      border-top: 1px solid silver;
+    }
+  }
+  li {
+    list-style-type: none;
+    > div {
+      height: 30px;
+      line-height: 30px;
+    }
+  }
+
+  .right {
+    float: right;
+    padding-right: 20px;
+  }
+  .article .right {
+    padding-right: 0;
+  }
+  .panel-title {
+    width: 100%;
+    a,
+    span {
+      color: #fff;
+      cursor: pointer;
+      vertical-align: top;
+      display: inline-block;
+      text-decoration: none;
+      + a,
+      + span {
+        margin-left: 10px;
+      }
+    }
+    span {
+      cursor: auto;
+    }
+  }
+}
