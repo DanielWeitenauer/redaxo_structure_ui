@@ -1,5 +1,10 @@
 structure = Struktur
 
+add_art = Artikel hinzufügen
+add_cat = Kategorie hinzufügen
+edit_art = Artikel bearbeiten
+edit_cat = Kategorie bearbeiten
+
 title_structure = Strukturverwaltung
 homepage = Homepage
 root_level = Hauptebene

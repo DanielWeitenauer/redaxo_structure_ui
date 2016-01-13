@@ -1,5 +1,23 @@
 <?php
 
+if(rex_get('page') == 'structure' && (($function = rex_get('function','string')) !== '')) {
+  /* Article/Category Modal */
+  $fragment = new rex_fragment();
+  $fragment->setVar('addon',$this);
+  if($function == 'edit_cat')
+    $fragment->setVar('form_data',rex_category::get(rex_get('id','int')));
+  $fragment->setVar('function',$function);
+  $ModalBody = $fragment->parse('modals/add_structure.php');
+
+  $fragment = new rex_fragment();
+  $fragment->setVar('class','fade');
+  $fragment->setVar('id','structure');
+  $fragment->setVar('title',$this->i18n($function));
+  $fragment->setVar('body',$ModalBody,false);
+  echo $fragment->parse('core/modal.php');
+  die();
+}
+
 /* Assets */
 if(rex_addon::get('assets')->isAvailable()) {
   rex_extension::register('BE_ASSETS',function($ep) {
@@ -7,6 +25,7 @@ if(rex_addon::get('assets')->isAvailable()) {
     $Subject[$this->getPackageId()] = [
       'files' => [
         $this->getPath('assets/structure_ui.less'),
+        $this->getPath('assets/structure_ui.js'),
       ],
       'addon' => $this->getPackageId(),
     ];
