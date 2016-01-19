@@ -7,6 +7,7 @@
   $Extended = $this->getVar('extended','');
   $Type = $this->getVar('type','');
   $PID = $this->getVar('pid');
+  $structureName = $this->getVar('structureName');
   $strType =  ($Type === 'cat'?'category':'article');
 ?><form action="<?php echo rex_url::currentBackendPage();?>" method="post">
   <fieldset>
@@ -18,7 +19,7 @@
     <dl class="rex-form-group form-group">
         <dt><label for="rex_modal_cat_name">Name</label></dt>
         <dd>
-            <input class="form-control" id="rex_modal_cat_name" type="text" name="<?php echo $strType;?>-name" value="<?php echo (!empty($form_data)?$form_data->getValue('name'):'');?>" >
+            <input class="form-control" id="rex_modal_cat_name" type="text" name="<?php echo $strType;?>-name" value="<?php echo (!empty($structureName)?$structureName:'');?>" >
         </dd>
     </dl>
 

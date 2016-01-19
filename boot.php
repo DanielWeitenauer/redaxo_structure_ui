@@ -5,21 +5,24 @@ if(rex_get('page') == 'structure' && (($function = rex_get('function','string'))
 
   $Type = rex_get('type','string');
   $KAT = rex_sql::factory();
-  $Where = ['clang_id = :clang','parent_id = :pid'];
-  $WhereParam = ['clang'=>rex_get('clang','int',1),'pid'=>rex_get('pid','int',0)];
-  if($Type === 'cat')
-    $Where[] = 'catname != ""';
-  else $Where[] = 'catname = ""';
+  $Where = ['clang_id = :clang'];
+  $WhereParam = ['clang'=>rex_get('clang','int',1)];
+  // if($Type === 'cat')
+  //   $Where[] = 'catname != ""';
+  // else $Where[] = 'catname = ""';
 
   if($function !== 'add') {
     $Where[] = 'id = :id';
     $WhereParam['id'] = rex_get('id','int');
   }
+  if($Type === 'cat') {
+    $Where = ['parent_id = :pid'];
+    $WhereParam['pid'] = rex_get('pid','int',0);
+  }
 
   $Where = implode(' AND ',$Where);
-  
   $Result = $KAT->setQuery('SELECT * FROM '.rex::getTablePrefix().'article WHERE '.$Where.' GROUP BY id',$WhereParam);
-
+  // print_r($Result);
   if($Type === 'cat')
     $typeHandler = new rex_metainfo_category_handler();
   elseif($Type === 'art')
@@ -47,6 +50,11 @@ if(rex_get('page') == 'structure' && (($function = rex_get('function','string'))
   $fragment->setVar('addon',$this);
   $fragment->setVar('type',$Type);
   $fragment->setVar('form_data',$Result);
+  if($function === 'edit') {
+    if($Type === 'art') $Name = $KAT->getValue('name');
+    else $Name = $KAT->getValue('catname');
+    $fragment->setVar('structureName',$Name);
+  }
   $fragment->setVar('clang',rex_get('clang','int'));
   $fragment->setVar('pid',rex_get('pid','int',0));
   $fragment->setVar('meta',$Meta,false);
