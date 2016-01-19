@@ -2,10 +2,31 @@
 
 if(rex_get('page') == 'structure' && (($function = rex_get('function','string')) !== '')) {
   /* Article/Category Modal */
+
+
+  $KAT = rex_sql::factory();
+  $KAT->setTable(rex::getTablePrefix() . 'article')
+  ->setWhere(['id'=>rex_get('id','int')])
+  ->select();
+
+  $catHandler = new rex_metainfo_category_handler();
+
+  $Meta = rex_extension::registerPoint(new rex_extension_point('CAT_FORM_EDIT', '', [
+    'id' => rex_get('id','int'),
+    'clang' => rex_get('clang','int'),
+    'category' => $KAT,
+    'catname' => 'Kontakt',
+    'catpriority' => 1,
+    'data_colspan' => 2,
+  ]));
+
+  
+
   $fragment = new rex_fragment();
   $fragment->setVar('addon',$this);
   if($function == 'edit_cat')
     $fragment->setVar('form_data',rex_category::get(rex_get('id','int')));
+  $fragment->setVar('meta',$Meta,false);
   $fragment->setVar('function',$function);
   $ModalBody = $fragment->parse('modals/add_structure.php');
 
@@ -13,6 +34,7 @@ if(rex_get('page') == 'structure' && (($function = rex_get('function','string'))
   $fragment->setVar('class','fade');
   $fragment->setVar('id','structure');
   $fragment->setVar('title',$this->i18n($function));
+
   $fragment->setVar('body',$ModalBody,false);
   echo $fragment->parse('core/modal.php');
   die();
@@ -33,6 +55,7 @@ if(rex_addon::get('assets')->isAvailable()) {
   });
 } elseif(rex::isBackend()) {
   rex_view::addCssFile($this->getAssetsUrl('structure_ui.less.min.css'));
+  rex_view::addCssFile($this->getAssetsUrl('structure_ui.jsmin.min.css'));
 }
 
 /* Eigene index.php laden */

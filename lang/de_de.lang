@@ -5,6 +5,9 @@ add_cat = Kategorie hinzufügen
 edit_art = Artikel bearbeiten
 edit_cat = Kategorie bearbeiten
 
+insert_cat_after = Kategorie anhängen
+insert_cat_into = Kategorie einfügen
+
 title_structure = Strukturverwaltung
 homepage = Homepage
 root_level = Hauptebene

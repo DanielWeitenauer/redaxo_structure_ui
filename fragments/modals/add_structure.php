@@ -2,6 +2,7 @@
   $addon = $this->getVar('addon');
   $function = $this->getVar('function');
   $form_data = $this->getVar('form_data',[]);
+  $Meta = $this->getVar('meta','');
 ?><form action="<?php echo rex_url::currentBackendPage();?>" method="post">
   <fieldset class="form-horizontal">
     <legend>Allgemein (<?php echo $function;?>)</legend>
@@ -20,15 +21,7 @@
     </div>
   </fieldset>
 
-  <fieldset class="form-horizontal">
-    <legend>Meta-Daten</legend>
-    <div class="form-group">
-        <label class="col-sm-2 control-label" for="value-1">Meta</label>
-        <div class="col-sm-10">
-            <input class="form-control" id="value-1" type="text" name="Name" value="" />
-        </div>
-    </div>
-  </fieldset>
+  <?php echo $Meta;?>
 
 
   <div class="modal-footer">

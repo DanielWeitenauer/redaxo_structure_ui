@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * - Sprach-Tabs
+ * - Breadcrumb
+ * - Head-Artikel
+ * - Struktur-Baum
+ */
+
 echo rex_view::title($this->i18n('title_structure'));
 
 $categoryId = rex_get('category');

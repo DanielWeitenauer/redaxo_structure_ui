@@ -19,6 +19,8 @@
     <span class="right trigger_modal">
       <a data-modal="true" data-target="#modal_structure" href="<?php echo rex_url::backendPage('structure',['id'=>$categoryId,'clang'=>rex_clang::getCurrent()->getId(),'function'=>'edit_cat']);?>">Edit</a>
       <a href="#" data-confirm="Kategorie wirklich löschen?">Delete</a>
+      <a data-modal="true" data-target="#modal_structure" href="<?php echo rex_url::backendPage('structure',['id'=>$categoryId,'clang'=>rex_clang::getCurrent()->getId(),'function'=>'insert_cat_after']);?>">Kategorie anhängen</a>
+      <a data-modal="true" data-target="#modal_structure" href="<?php echo rex_url::backendPage('structure',['id'=>$categoryId,'clang'=>rex_clang::getCurrent()->getId(),'function'=>'insert_cat_into']);?>">Kategorie einfügen</a>
     </span>
   </div>
   <?php if(!empty($Articles) && ($article_navigation[$categoryId] == 1 || $toggleAllArticles == 1)) {?>
