@@ -17,8 +17,8 @@
     </span>
     <span class="left"><a href="<?php echo rex_url::backendPage('structure',['root_tree'=>$categoryId]);?>"><?php echo $category->getName();?></a></span>
     <span class="right trigger_modal">
-      <a data-modal="true" data-target="#modal_structure" href="<?php echo rex_url::backendPage('structure',['id'=>$categoryId,'pid'=>$category->getParentId(),'clang'=>rex_clang::getCurrent()->getId(),'function'=>'edit','type'=>'cat']);?>">Edit</a>
-      <a href="#" data-confirm="Kategorie wirklich löschen?">Delete</a>
+      <a data-modal="true" data-target="#modal_structure" href="<?php echo rex_url::backendPage('structure',['id'=>$categoryId,'pid'=>$category->getParentId(),'clang'=>rex_clang::getCurrent()->getId(),'function'=>'edit','type'=>'cat']);?>">Bearbeiten</a>
+      <a href="<?php echo rex_url::backendPage('structure',['rex-api-call'=>'category_delete','category-id'=>$categoryId]);?>" data-confirm="Kategorie wirklich löschen?">Löschen</a>
       <span>|</span>
       <a href="<?php echo rex_url::backendPage('structure',['pid'=>$categoryId, 'clang'=>rex_clang::getCurrent()->getId(),'function'=>'add','type'=>'cat']);?>" data-modal="true" data-target="#modal_structure">Kategorie hinzufügen</a>
       <span>|</span>

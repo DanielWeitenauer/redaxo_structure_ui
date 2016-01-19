@@ -12,7 +12,7 @@ if(rex_get('page') == 'structure' && (($function = rex_get('function','string'))
   $WhereParam = ['clang'=>rex_get('clang','int',1),'pid'=>rex_get('pid','int',0)];
   if($Type === 'cat')
     $Where[] = 'catname != ""';
-  else $Where[] = 'catname == ""';
+  else $Where[] = 'catname = ""';
 
   if($function !== 'add') {
     $Where[] = 'id = :id';
@@ -50,6 +50,7 @@ if(rex_get('page') == 'structure' && (($function = rex_get('function','string'))
   $fragment->setVar('addon',$this);
   $fragment->setVar('type',$Type);
   $fragment->setVar('form_data',$Result);
+  $fragment->setVar('clang',rex_get('clang','int'));
   $fragment->setVar('pid',rex_get('pid','int',0));
   $fragment->setVar('meta',$Meta,false);
   $fragment->setVar('extended',$EP,false);
