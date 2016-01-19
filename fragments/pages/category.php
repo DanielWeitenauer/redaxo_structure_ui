@@ -17,10 +17,12 @@
     </span>
     <span class="left"><a href="<?php echo rex_url::backendPage('structure',['root_tree'=>$categoryId]);?>"><?php echo $category->getName();?></a></span>
     <span class="right trigger_modal">
-      <a data-modal="true" data-target="#modal_structure" href="<?php echo rex_url::backendPage('structure',['id'=>$categoryId,'clang'=>rex_clang::getCurrent()->getId(),'function'=>'edit_cat']);?>">Edit</a>
+      <a data-modal="true" data-target="#modal_structure" href="<?php echo rex_url::backendPage('structure',['id'=>$categoryId,'pid'=>$category->getParentId(),'clang'=>rex_clang::getCurrent()->getId(),'function'=>'edit','type'=>'cat']);?>">Edit</a>
       <a href="#" data-confirm="Kategorie wirklich löschen?">Delete</a>
-      <a data-modal="true" data-target="#modal_structure" href="<?php echo rex_url::backendPage('structure',['id'=>$categoryId,'clang'=>rex_clang::getCurrent()->getId(),'function'=>'insert_cat_after']);?>">Kategorie anhängen</a>
-      <a data-modal="true" data-target="#modal_structure" href="<?php echo rex_url::backendPage('structure',['id'=>$categoryId,'clang'=>rex_clang::getCurrent()->getId(),'function'=>'insert_cat_into']);?>">Kategorie einfügen</a>
+      <span>|</span>
+      <a href="<?php echo rex_url::backendPage('structure',['pid'=>$categoryId, 'clang'=>rex_clang::getCurrent()->getId(),'function'=>'add','type'=>'cat']);?>" data-modal="true" data-target="#modal_structure">Kategorie hinzufügen</a>
+      <span>|</span>
+      <a href="<?php echo rex_url::backendPage('structure',['pid'=>$categoryId, 'clang'=>rex_clang::getCurrent()->getId(),'function'=>'add','type'=>'art']);?>" data-modal="true" data-target="#modal_structure">Artikel hinzufügen</a>
     </span>
   </div>
   <?php if(!empty($Articles) && ($article_navigation[$categoryId] == 1 || $toggleAllArticles == 1)) {?>

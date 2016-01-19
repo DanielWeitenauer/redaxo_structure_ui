@@ -1,48 +1,67 @@
 <?php
 
+if(!empty($_POST))
+print_r($_POST);
+
 if(rex_get('page') == 'structure' && (($function = rex_get('function','string')) !== '')) {
   /* Article/Category Modal */
 
-
+  $Type = rex_get('type','string');
   $KAT = rex_sql::factory();
-  $KAT->setTable(rex::getTablePrefix() . 'article')
-  ->setWhere(['id'=>rex_get('id','int')])
-  ->select();
+  $Where = ['clang_id = :clang','parent_id = :pid'];
+  $WhereParam = ['clang'=>rex_get('clang','int',1),'pid'=>rex_get('pid','int',0)];
+  if($Type === 'cat')
+    $Where[] = 'catname != ""';
+  else $Where[] = 'catname == ""';
 
-  $catHandler = new rex_metainfo_category_handler();
+  if($function !== 'add') {
+    $Where[] = 'id = :id';
+    $WhereParam['id'] = rex_get('id','int');
+  }
 
-  $Meta = $catHandler->renderFormAndSave('cat_', [
-    'id' => rex_get('id','int'),
-    'clang' => rex_get('clang','int'),
-    'category' => $KAT,
-    'catname' => 'Kontakt',
-    'catpriority' => 1,
-    'data_colspan' => 2,
-  ]);
+  $Where = implode(' AND ',$Where);
   
-  $EP = rex_extension::registerPoint(new rex_extension_point('STRUCTURE_UI_MODAL', '', [
+  $Result = $KAT->setQuery('SELECT * FROM '.rex::getTablePrefix().'article WHERE '.$Where.' GROUP BY id',$WhereParam);
+
+  if($Type === 'cat')
+    $typeHandler = new rex_metainfo_category_handler();
+  elseif($Type === 'art')
+    $typeHandler = new rex_metainfo_category_handler();
+
+  $_typeHandler = rex_extension::registerPoint(new rex_extension_point('STRUCTURE_UI_META_HANDLER', '', [
     'function' => $function,
+    'type' => $Type,
+  ]));
+  if(!empty($_typeHandler))
+    $typeHandler = $_typeHandler;
+
+  $HandlerData = [
+    'function' => $function,
+    'type' => $Type,
     'id' => rex_get('id','int'),
     'clang' => rex_get('clang','int'),
-    'category' => $KAT,
-    'catname' => 'Kontakt',
-    'catpriority' => 1,
-    'data_colspan' => 2,
-  ]));
+    'category' => $Result
+  ];
+
+  $Meta = $typeHandler->renderFormAndSave($Type.'_', $HandlerData);
+  $EP = rex_extension::registerPoint(new rex_extension_point('STRUCTURE_UI_MODAL', '', $HandlerData));
 
   $fragment = new rex_fragment();
   $fragment->setVar('addon',$this);
-  if($function == 'edit_cat')
-    $fragment->setVar('form_data',rex_category::get(rex_get('id','int')));
+  $fragment->setVar('type',$Type);
+  $fragment->setVar('form_data',$Result);
+  $fragment->setVar('pid',rex_get('pid','int',0));
   $fragment->setVar('meta',$Meta,false);
   $fragment->setVar('extended',$EP,false);
   $fragment->setVar('function',$function);
-  $ModalBody = $fragment->parse('modals/add_structure.php');
+  $ModalBody = $fragment->parse('modals/'.($function==='add'?'add':'edit').'_structure.php');
+
+
 
   $fragment = new rex_fragment();
   $fragment->setVar('class','fade');
   $fragment->setVar('id','structure');
-  $fragment->setVar('title',$this->i18n($function));
+  $fragment->setVar('title',$this->i18n($function.'_'.$Type));
 
   $fragment->setVar('body',$ModalBody,false);
   echo $fragment->parse('core/modal.php');

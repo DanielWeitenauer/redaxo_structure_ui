@@ -134,6 +134,7 @@ foreach($Categories as $Category) {
 
 
 $fragment = new rex_fragment();
+$fragment->setVar('categoryId',$c_root_tree);
 $panel_title = $fragment->parse('pages/panel_title.php');
 
 $fragment = new rex_fragment();
