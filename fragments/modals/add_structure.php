@@ -21,7 +21,6 @@
             <input class="form-control" id="rex_modal_cat_name" type="text" name="<?php echo $strType;?>-name" value="" >
         </dd>
     </dl>
-
     <dl class="rex-form-group form-group">
         <dt><label for="rex_modal_cat_priority">Prio</label></dt>
         <dd>
