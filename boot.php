@@ -1,8 +1,5 @@
 <?php
 
-if(!empty($_POST))
-print_r($_POST);
-
 if(rex_get('page') == 'structure' && (($function = rex_get('function','string')) !== '')) {
   /* Article/Category Modal */
 
