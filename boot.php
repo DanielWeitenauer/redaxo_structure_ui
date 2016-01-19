@@ -11,7 +11,17 @@ if(rex_get('page') == 'structure' && (($function = rex_get('function','string'))
 
   $catHandler = new rex_metainfo_category_handler();
 
-  $Meta = rex_extension::registerPoint(new rex_extension_point('CAT_FORM_EDIT', '', [
+  $Meta = $catHandler->renderFormAndSave('cat_', [
+    'id' => rex_get('id','int'),
+    'clang' => rex_get('clang','int'),
+    'category' => $KAT,
+    'catname' => 'Kontakt',
+    'catpriority' => 1,
+    'data_colspan' => 2,
+  ]);
+  
+  $EP = rex_extension::registerPoint(new rex_extension_point('STRUCTURE_UI_MODAL', '', [
+    'function' => $function,
     'id' => rex_get('id','int'),
     'clang' => rex_get('clang','int'),
     'category' => $KAT,
@@ -20,13 +30,12 @@ if(rex_get('page') == 'structure' && (($function = rex_get('function','string'))
     'data_colspan' => 2,
   ]));
 
-  
-
   $fragment = new rex_fragment();
   $fragment->setVar('addon',$this);
   if($function == 'edit_cat')
     $fragment->setVar('form_data',rex_category::get(rex_get('id','int')));
   $fragment->setVar('meta',$Meta,false);
+  $fragment->setVar('extended',$EP,false);
   $fragment->setVar('function',$function);
   $ModalBody = $fragment->parse('modals/add_structure.php');
 
