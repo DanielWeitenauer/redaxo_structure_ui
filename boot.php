@@ -16,7 +16,7 @@ if(rex_get('page') == 'structure' && (($function = rex_get('function','string'))
     $WhereParam['id'] = rex_get('id','int');
   }
   if($Type === 'cat') {
-    $Where = ['parent_id = :pid'];
+    $Where[] = 'parent_id = :pid';
     $WhereParam['pid'] = rex_get('pid','int',0);
   }
 
