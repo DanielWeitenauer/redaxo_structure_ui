@@ -1,6 +1,6 @@
 #Structure UI
 
-> Achtung: Dieses Addon wird nicht weiterentwickelt und bleibt als Beta noch eine Weile online.
+> Achtung: Dieses Addon wird nicht weiterentwickelt, da mir ein Design fehlte, es bleibt aber als Beta noch eine Weile online.
 
 Dieses Addon ersetzt die Core-Struktur um einen aufklappbaren Baum. In der Beta-Version können Kategorien und Artikel bearbeitet werden. Es ist noch nicht möglich Templates oder Rechte anzulegen.
 
