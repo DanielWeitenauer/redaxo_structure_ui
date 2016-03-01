@@ -12,8 +12,8 @@
 <li class="category">
   <div>
     <span class="open">
-      <?php if(!empty($Children)) {?><a class="openCategories" href="<?php echo rex_url::backendPage('structure',['category'=>$categoryId]);?>"><i class="rex-icon fa-chevron-<?php echo ($navigation[$categoryId] == 1 || $toggleAllCategories == 1?'down':'right');?>"></i></a><?php }?>
-      <?php if(!empty($Articles)) {?><a class="showArticles" href="<?php echo rex_url::backendPage('structure',['article'=>$categoryId]);?>"><i class="rex-icon fa-<?php echo ($article_navigation[$categoryId] == 1 || $toggleAllArticles == 1?'minus':'plus');?>-square-o"></i></a><?php }?>
+      <?php if(!empty($Children)) {?><a data-pjax="true" class="openCategories" href="<?php echo rex_url::backendPage('structure',['category'=>$categoryId]);?>"><i class="rex-icon fa-chevron-<?php echo ($navigation[$categoryId] == 1 || $toggleAllCategories == 1?'down':'right');?>"></i></a><?php }?>
+      <?php if(!empty($Articles)) {?><a data-pjax="true" class="showArticles" href="<?php echo rex_url::backendPage('structure',['article'=>$categoryId]);?>"><i class="rex-icon fa-<?php echo ($article_navigation[$categoryId] == 1 || $toggleAllArticles == 1?'minus':'plus');?>-square-o"></i></a><?php }?>
     </span>
     <span class="left"><a href="<?php echo rex_url::backendPage('structure',['root_tree'=>$categoryId]);?>"><?php echo $category->getName();?></a></span>
     <span class="right trigger_modal">

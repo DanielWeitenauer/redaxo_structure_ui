@@ -9,6 +9,13 @@ $(document).on('ready pjax:success rex:ready',function() {
       $(data).modal();
     });
   });
+
+  $('.openCategories').click(function(e){
+    var $el = $(this),
+        pjax = $el.data('pjax');
+    if(!pjax)
+      e.preventDefault();
+  });
 });
 
 })(jQuery);
